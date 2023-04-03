@@ -48,6 +48,14 @@ a {
   color: var(--clr-black);
 }
 
+.navbar-container, 
+.button,
+.title {
+  font-family: 'Oswald', sans-serif;
+  font-style: normal;
+}
+
+.logo,
 .button {
   cursor: pointer;
 }

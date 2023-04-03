@@ -1,11 +1,16 @@
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
 
 function Footer() {
 	return (
-		<div>
-			<footer>Footer</footer>
-		</div>
+		<Wrapper>
+			Footer
+		</Wrapper>
 	);
 }
+
+const Wrapper = styled.footer`
+	background-color: var(--clr-black);
+`;
 
 export default Footer;
