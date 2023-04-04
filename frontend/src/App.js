@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import Header from "./components/Header/Header";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 import About from "./pages/About";
 
 function App() {

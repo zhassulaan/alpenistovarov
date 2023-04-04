@@ -57,7 +57,7 @@ function Navbar() {
 			<div className='navbar-right_bar'>
         <span className="navbar-button login_button button">ВХОД</span>
         <Button icon={ search } />
-        <Button icon={ favourites } link={"/favourites"} count={ 0 } />
+        <Button icon={ favourites } link={ "/favourites" } count={ 0 } />
         <Button icon={ purchase } count={ 0 } />
 			</div>
 		</Wrapper>
