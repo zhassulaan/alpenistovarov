@@ -98,6 +98,7 @@ const Wrapper = styled.nav`
   
   .navbar-catalog-name {
     font-size: 16px;
+    transition: 0.3s;
   }
   
   .navbar-catalog-name:hover {

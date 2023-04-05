@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import orange_logo from "../../resources/footer_logo1.svg";
@@ -9,56 +9,66 @@ import instagram from "../../resources/instagram.svg";
 import telegram from "../../resources/telegram.svg";
 import whatsapp from "../../resources/whatsapp.svg";
 
-function ContactsMenu() {
+function ContactsMenu({ arrow }) {
+	const [isOpne, setIsOpne] = useState("false");
+
+  const handleToggle = () => {
+    setIsOpne(!isOpne);
+  };
+
 	return (
-		<Wrapper className="footer_menu">
+		<Wrapper className={ isOpne ? "footer_menu footer_menu-close" : "footer_menu footer_menu-open" }>
 			<div className="footer_menu-header">
 				<h4 className="footer_menu-title title">КОНТАКТЫ</h4>
+				<img
+          src={ arrow }
+          alt="arrow icon"
+          className="footer_menu-header-icon"
+          onClick={ handleToggle }
+        />
 			</div>
 
 			<div className="footer_menu-container">
-        <div className="footer_menu-container-left">
-					<div className="footer_menu-logos">
-            <img
-              src={ orange_logo }
-              alt="orange colored logo"
-              className="footer_menu-logo"
-            />
-            <img
-              src={ green_logo }
-              alt="green colored logo"
-              className="footer_menu-logo"
-            />
-          </div>
+				<div className="footer_menu-logos">
+          <img
+            src={ orange_logo }
+            alt="orange colored logo"
+            className="footer_menu-logo"
+          />
+          <img
+            src={ green_logo }
+            alt="green colored logo"
+            className="footer_menu-logo"
+          />
+        </div>
 
-					<div className="footer_menu-social_medias">
-            <Link to="/" className="footer_menu-social_media">
-              <img
-								src={ instagram }
-								alt="instagram link"
-              	className="footer_menu-icon"
-							/>
-            </Link>
+				<div className="footer_menu-social_medias">
+          <Link to="/" className="footer_menu-social_media">
+            <img
+							src={ instagram }
+							alt="instagram link"
+              className="footer_menu-icon"
+						/>
+          </Link>
 
-            <Link to="/" className="footer_menu-social_media">
-              <img
-								src={ telegram }
-								alt="telegram link"
-              	className="footer_menu-icon"
-							/>
-            </Link>
+          <Link to="/" className="footer_menu-social_media">
+            <img
+							src={ telegram }
+							alt="telegram link"
+            	className="footer_menu-icon"
+						/>
+          </Link>
             
-						<Link to="/" className="footer_menu-social_media">
-              <img
-								src={ whatsapp }
-								alt="telegram link"
-              	className="footer_menu-icon"
-							/>
-            </Link>
-          </div>
-				</div>
+					<Link to="/" className="footer_menu-social_media">
+            <img
+							src={ whatsapp }
+							alt="telegram link"
+            	className="footer_menu-icon"
+						/>
+          </Link>
+        </div>
 
-        <div className="footer_menu-container-right">
+        <div className="footer_menu-contacts">
 					<Link to="/" className="footer_menu-contact">
 						<img
 							src={ phone }
@@ -85,8 +95,13 @@ function ContactsMenu() {
 					</Link>
 				</div>
 
+				<p className="footer_menu-link footer_menu-policy_text">
+          Сайт создан 
+					<a href="http://athenaplus.kz/" className="footer_menu-policy_link"> athenaplus.kz</a>
+        </p>
+
         <div className="footer_menu-container-bottom">
-					<p className="footer_menu-policy_text">© 2023. Магазин одежды и снаряжения для бега и активного отдыха «YAQ». Все права защищены.</p>
+					<p className="footer_menu-policy_text">© 2023. Магазин одежды и снаряжения для туризма, кемпинга и путешествий «ЯК». Все права защищены.</p>
 					<p className="footer_menu-policy_text">
             Сайт создан 
 						<a href="http://athenaplus.kz/" className="footer_menu-policy_link"> athenaplus.kz</a>
@@ -101,18 +116,15 @@ const Wrapper = styled.ul`
 	.footer_menu-container {
 		display: grid;
 		grid: 
-			'left right'
+			'logos contacts'
+			'medias contacts'
 			'bottom bottom';
-		justify-content: space-between;
 	}
 
-	.footer_menu-container-left {
-		grid-area: left;
-		margin-top: .625em;
-	}
-	
 	.footer_menu-logos {
+		grid-area: logos;
 		height: 3.125em;
+		margin-top: .625em;
 	}
 	
 	.footer_menu-logo {
@@ -122,7 +134,7 @@ const Wrapper = styled.ul`
 
 	.footer_menu-social_medias {
 		display: flex;
-		align-items: center;
+		grid-area: medias;
 		gap: 1.25vw;
 		margin-top: 1.875em;
 	}
@@ -137,10 +149,10 @@ const Wrapper = styled.ul`
 		border-radius: 50%;
 	}
 
-	.footer_menu-container-right {
+	.footer_menu-contacts {
 		display: flex;
 		flex-direction: column;
-		grid-area: right;
+		grid-area: contacts;
 		gap: .625em;
 		margin-top: 1.25em;
 	}
@@ -163,6 +175,10 @@ const Wrapper = styled.ul`
 		font-weight: 500;
 		color: var(--clr-white);
 	}
+
+	.footer_menu-link {
+		display: none;
+	}
 	
 	.footer_menu-container-bottom {
 		position: relative;
@@ -170,6 +186,7 @@ const Wrapper = styled.ul`
 		justify-content: space-between;
 		align-items: center;
 		grid-area: bottom;
+		height: 4.6875em;
 		margin-top: 1.875em;
 		padding-top: 1.5625em;
 	}
@@ -200,6 +217,87 @@ const Wrapper = styled.ul`
 	.footer_menu-policy_link {
 		text-decoration: underline;
 		color: var(--clr-white);
+	}
+
+	@media (max-width: 480px) {
+		.footer_menu-container {
+			grid: 
+				'contacts medias'
+				'logos link'
+				'bottom bottom';
+		}
+
+		.footer_menu-logos {
+			height: 1.875em;
+			margin-top: 0;
+		}
+		
+		.footer_menu-logo {
+			margin-right: .3125em;
+		}
+
+		.footer_menu-social_medias,
+		.footer_menu-contacts {
+			width: 43.0556vw;
+		}
+		
+		.footer_menu-social_medias {
+			gap: 4.861vw;
+			margin: .3125em 0 0 .625em;
+		}
+
+		.footer_menu-contacts {
+			margin: 0 0 1.875em;
+		}
+
+		.footer_menu-contact {
+			display: block;
+			height: 1.25em;
+		}
+		
+		.footer_menu-contact-icon {
+			display: none;
+		}
+		
+		.footer_menu-contact-text {
+			font-family: 'Jost', sans-serif;
+			font-weight: 400;
+			font-size: 16px;
+		}
+		
+		.footer_menu-contact:last-child {
+			width: calc(100vw - 2 * 5.5556vw);
+		}
+		
+		.footer_menu-contact:last-child .footer_menu-contact-text {
+			font-family: 'Oswald', sans-serif;
+			font-weight: 500;
+			text-align: end;
+		}
+		
+		.footer_menu-container-bottom:before,
+		.footer_menu-policy_text:last-child {
+			display: none;
+		}
+		
+		.footer_menu-policy_text:first-child {
+			width: 100%;
+			text-align: center;
+		}
+		
+		.footer_menu-link {
+			display: block;
+			text-align: right;
+			line-height: 20px;
+			margin-top: 10px;
+		}
+		
+		.footer_menu-container-bottom {
+			display: block;
+			height: 3.75em;
+			margin-top: .9375em;
+			padding-top: 0;
+		}
 	}
 `;
 
